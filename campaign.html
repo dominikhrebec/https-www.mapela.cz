@@ -1,0 +1,688 @@
+html_content_en = """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAPELA Performance Campaign</title>
+    <!-- Google Fonts: Poppins & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --glass-blur: blur(12px);
+            --primary-orange: #ff6b00;
+            --primary-glow: rgba(255, 107, 0, 0.4);
+            --text-main: #f5f5f7;
+            --text-muted: #86868b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Ambient Background Glows */
+        .parallax-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.15;
+            background: var(--primary-orange);
+        }
+
+        .orb-1 { width: 400px; height: 400px; top: -10%; left: -10%; }
+        .orb-2 { width: 500px; height: 500px; bottom: 10%; right: -10%; background: #0071e3; }
+
+        /* Sticky Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(11, 12, 16, 0.7);
+            backdrop-filter: var(--glass-blur);
+            border-bottom: 1px solid var(--card-border);
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .nav-logo span {
+            color: var(--primary-orange);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-orange);
+        }
+
+        /* Layout Fullscreen Sections */
+        section {
+            min-height: 100vh;
+            padding: 8rem 2rem 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            letter-spacing: -0.5px;
+            background: linear-gradient(180deg, #fff 0%, #86868b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Glowing Button Styles */
+        .btn-glow {
+            position: relative;
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--primary-orange);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px var(--primary-glow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--primary-glow);
+        }
+
+        /* Hero Section */
+        #hero {
+            text-align: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, rgba(255,107,0,0.05) 0%, transparent 70%);
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+
+        /* Section 1: Research & Grid */
+        .grid-research {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 107, 0, 0.3);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            color: var(--primary-orange);
+            margin-bottom: 1.5rem;
+        }
+
+        .glass-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .glass-card ul {
+            list-style: none;
+        }
+
+        .glass-card li {
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .glass-card li i {
+            color: var(--primary-orange);
+            font-size: 0.8rem;
+        }
+
+        /* Section 2: Target Audience */
+        .grid-audience {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .audience-card {
+            text-align: center;
+        }
+
+        .audience-emoji {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .audience-card:hover .audience-emoji {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .audience-card p {
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Section 3: Distribution Strategy (Timeline) */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: var(--card-border);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+
+        .timeline-container {
+            padding: 10px 40px;
+            position: relative;
+            background: inherit;
+            width: 50%;
+        }
+
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            right: -8px;
+            background-color: var(--bg-color);
+            border: 2px solid var(--primary-orange);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .left { left: 0; }
+        .right { left: 50%; }
+
+        .right::after { left: -8px; }
+
+        /* Section 4: Social Media Campaigns Layout */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2.5rem;
+            width: 100%;
+            align-items: center;
+        }
+
+        .social-card {
+            background: #121318;
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2rem;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .social-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .social-avatar {
+            width: 45px;
+            height: 45px;
+            background: var(--primary-orange);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Poster Placement Box */
+        .poster-placeholder {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            background: linear-gradient(135deg, rgba(255,107,0,0.05) 0%, rgba(255,255,255,0.02) 100%);
+            border: 2px dashed var(--card-border);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-muted);
+            transition: border-color 0.3s ease, background 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .poster-placeholder:hover {
+            border-color: var(--primary-orange);
+            background: linear-gradient(135deg, rgba(255,107,0,0.1) 0%, rgba(255,255,255,0.04) 100%);
+        }
+
+        .poster-placeholder i {
+            font-size: 2.5rem;
+            color: var(--primary-orange);
+        }
+
+        .poster-placeholder span {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-main);
+        }
+
+        /* Reels Video Container */
+        .reel-container {
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+            aspect-ratio: 9 / 16;
+            background: #000;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .reel-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Section 5: Results Goals & Counters */
+        .grid-counters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        .counter-box h2 {
+            font-size: 3.5rem;
+            color: var(--primary-orange);
+            margin-bottom: 0.5rem;
+        }
+
+        .counter-box p {
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--card-border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Fixes */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.8rem; }
+            .timeline::after { left: 31px; }
+            .timeline-container { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-container::after { left: 23px; }
+            .right { left: 0; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Parallax Background Glows -->
+    <div class="parallax-bg">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+
+    <!-- Sticky Navbar -->
+    <nav class="navbar">
+        <a href="#" class="nav-logo">MAPELA<span>.</span></a>
+        <ul class="nav-links">
+            <li><a href="#research">Research</a></li>
+            <li><a href="#audience">Audience</a></li>
+            <li><a href="#distribution">Strategy</a></li>
+            <li><a href="#social-posts">Social Media</a></li>
+            <li><a href="#goals">Goals</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="hero">
+        <h1 class="hero-title">MAPELA<br>Performance Campaign</h1>
+        <p class="hero-subtitle">Industrial strength products for real work. Digital marketing architecture structured for scalable growth.</p>
+        <a href="#research" class="btn-glow">Explore Campaign</a>
+    </section>
+
+    <!-- SECTION 1 — RESEARCH -->
+    <section id="research">
+        <h2 class="section-title">Research & Product Benefits</h2>
+        <div class="grid-research">
+            <div class="glass-card reveal">
+                <div class="card-icon"><i class="fa-solid fa-dumpster"></i></div>
+                <h3>Heavy-duty rubble bags</h3>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Extreme tear resistance</li>
+                    <li><i class="fa-solid fa-check"></i> High real load capacity for heavy waste</li>
+                    <li><i class="fa-solid fa-check"></i> Optimized for construction debris</li>
+                </ul>
+            </div>
+            <div class="glass-card reveal">
+                <div class="card-icon"><i class="fa-solid fa-tarp"></i></div>
+                <h3>UV-resistant tarpaulins</h3>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Complete material waterproofness</li>
+                    <li><i class="fa-solid fa-check"></i> Precise custom-made production</li>
+                    <li><i class="fa-solid fa-check"></i> Long lifespan in demanding conditions</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2 — TARGET AUDIENCE -->
+    <section id="audience">
+        <h2 class="section-title">Who Is The Audience?</h2>
+        <div class="grid-audience">
+            <div class="glass-card audience-card reveal">
+                <div class="audience-emoji">🏗️</div>
+                <h3>Construction companies</h3>
+                <p>Contractors and builders executing renovations who need absolute reliability when hauling debris without accidents.</p>
+            </div>
+            <div class="glass-card audience-card reveal">
+                <div class="audience-emoji">📦</div>
+                <h3>Logistics & warehouses</h3>
+                <p>Warehouse operators seeking custom coverings for expensive materials and goods to protect them against harsh weather elements.</p>
+            </div>
+            <div class="glass-card audience-card reveal">
+                <div class="audience-emoji">🚜</div>
+                <h3>Agriculture & farming</h3>
+                <p>Farmers requiring highly durable large-format tarps to shield machinery and straw bales from seasonal deterioration.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3 — DISTRIBUTION STRATEGY -->
+    <section id="distribution">
+        <h2 class="section-title">Distribution Channels</h2>
+        <div class="timeline">
+            <div class="timeline-container left reveal">
+                <div class="glass-card">
+                    <h3>Social Media Short-form</h3>
+                    <p>TikTok & Instagram Reels: Dynamic product videos targeting younger craftsmen and the DIY community.</p>
+                </div>
+            </div>
+            <div class="timeline-container right reveal">
+                <div class="glass-card">
+                    <h3>Targeted Facebook Communities</h3>
+                    <p>Facebook Groups & Marketplace: Direct outreach to self-help builders and smaller local companies.</p>
+                </div>
+            </div>
+            <div class="timeline-container left reveal">
+                <div class="glass-card">
+                    <h3>Inbound Classifieds</h3>
+                    <p>Bazoš.cz & localized listing networks: Leveraging high organic search volume for construction materials and accessories.</p>
+                </div>
+            </div>
+            <div class="timeline-container right reveal">
+                <div class="glass-card">
+                    <h3>Expert Content Portals</h3>
+                    <p>Svépomocí.cz & specialized blogs: Expert PR articles, native product integration into real-world construction case studies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4 — SOCIAL MEDIA CAMPAIGNS (POSTER & REEL) -->
+    <section id="social-posts">
+        <h2 class="section-title">Social Media Campaigns</h2>
+        <div class="social-grid">
+            
+            <!-- Post 1: Image/Poster Post -->
+            <div class="social-card reveal">
+                <div class="social-header">
+                    <div class="social-avatar">M</div>
+                    <div>
+                        <strong>MAPELA</strong>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">Sponsored • Feed Ad</div>
+                    </div>
+                </div>
+                <!-- Poster Target Slot -->
+                <div class="poster-placeholder" onclick="alert('Replace this div with your own <img> tag for the poster.')">
+                    <i class="fa-regular fa-image"></i>
+                    <span>[ Insert your poster here ]</span>
+                    <small>Replace this placeholder box with &lt;img src="your-poster.jpg" alt="Poster" style="width:100%; border-radius:12px;"&gt;</small>
+                </div>
+            </div>
+
+            <!-- Post 2: Playable Reel Video Post -->
+            <div class="social-card reveal">
+                <div class="social-header">
+                    <div class="social-avatar">M</div>
+                    <div>
+                        <strong>MAPELA</strong>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">Sponsored • Reel / TikTok</div>
+                    </div>
+                </div>
+                <!-- Interactive Playable Reel (9:16) -->
+                <div class="reel-container">
+                    <video class="reel-video" controls loop muted playsinline poster="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=500&q=80">
+                        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+                        Your browser does not support video playback.
+                    </video>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 5 — RESULTS GOALS -->
+    <section id="goals">
+        <h2 class="section-title">Campaign Goals</h2>
+        <div class="grid-counters">
+            <div class="counter-box">
+                <h2 class="counter" data-target="150000">0</h2>
+                <p>Brand Awareness (Impressions)</p>
+            </div>
+            <div class="counter-box">
+                <h2 class="counter" data-target="25000">0</h2>
+                <p>Website Traffic</p>
+            </div>
+            <div class="counter-box">
+                <h2 class="counter" data-target="850">0</h2>
+                <p>B2B Leads Generated</p>
+            </div>
+            <div class="counter-box">
+                <h2 class="counter" data-target="12000">0</h2>
+                <p>Retargeting Audience</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Created as a digital marketing campaign pitch for MAPELA.cz.</p>
+    </footer>
+
+    <!-- GSAP Libraries via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        // Register ScrollTrigger Plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Mouse Parallax Effect for Background Orbs
+        document.addEventListener("mousemove", (e) => {
+            const { clientX, clientY } = e;
+            const xPos = (clientX / window.innerWidth - 0.5) * 40;
+            const yPos = (clientY / window.innerHeight - 0.5) * 40;
+
+            gsap.to(".parallax-bg", {
+                x: xPos,
+                y: yPos,
+                duration: 1,
+                ease: "power2.out"
+            });
+        });
+
+        // Hero Content Animation
+        gsap.from("#hero *", {
+            y: 50,
+            opacity: 0,
+            duration: 1.2,
+            stagger: 0.2,
+            ease: "power4.out"
+        });
+
+        // Scroll Reveal Animation for generic items
+        const revealElements = document.querySelectorAll(".reveal");
+        revealElements.forEach((el) => {
+            gsap.from(el, {
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 85%",
+                    toggleActions: "play none none none"
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            });
+        });
+
+        // Animated Counters using GSAP
+        const counters = document.querySelectorAll(".counter");
+        counters.forEach((counter) => {
+            const target = +counter.getAttribute("data-target");
+            
+            gsap.to(counter, {
+                scrollTrigger: {
+                    trigger: counter,
+                    start: "top 90%",
+                },
+                innerText: target,
+                duration: 2,
+                snap: { innerText: 1 },
+                ease: "power3.out",
+                modifiers: {
+                    innerText: function(innerText) {
+                        return Math.floor(innerText).toLocaleString('en-US') + (target === 150000 || target === 25000 || target === 12000 ? '+' : '');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+"""
+
+with open("index-v3.html", "w", encoding="utf-8") as f:
+    f.write(html_content_en)
+
+print("SUCCESS_V3")
